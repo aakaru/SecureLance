@@ -1,0 +1,126 @@
+import React, { useState } from 'react';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogFooter, 
+  DialogHeader, 
+  DialogTitle 
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
+import { toast } from 'sonner';
+interface DisputeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  contractId: number;
+  contractTitle: string;
+}
+export const DisputeModal = ({ isOpen, onClose, contractId, contractTitle }: DisputeModalProps) => {
+  const [reason, setReason] = useState('');
+  const [description, setDescription] = useState('');
+  const disputeReasons = [
+    "Missed deadline",
+    "Quality issues",
+    "Scope disagreement",
+    "Communication problems",
+    "Payment dispute",
+    "Other"
+  ];
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success('Dispute submitted successfully!');
+    onClose();
+    setReason('');
+    setDescription('');
+  };
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md bg-card">
+        <DialogHeader>
+          <DialogTitle>Start a Dispute</DialogTitle>
+          <DialogDescription>
+            Submit details about your dispute to initiate the resolution process.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4 py-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Contract</label>
+              <p className="text-sm p-2 bg-muted/30 rounded-md">{contractTitle}</p>
+            </div>
+            <div>
+              <label htmlFor="reason" className="block text-sm font-medium mb-2">Reason for Dispute</label>
+              <Select value={reason} onValueChange={setReason}>
+                <SelectTrigger className="web3-input">
+                  <SelectValue placeholder="Select a reason" />
+                </SelectTrigger>
+                <SelectContent>
+                  {disputeReasons.map((r) => (
+                    <SelectItem key={r} value={r}>{r}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label htmlFor="description" className="block text-sm font-medium mb-2">Description</label>
+              <textarea 
+                id="description" 
+                rows={3}
+                className="web3-input w-full"
+                placeholder="Describe the issue in detail..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Evidence (Optional)</label>
+              <div className="border-2 border-dashed border-border rounded-md p-6 text-center">
+                <input type="file" id="file-upload" className="hidden" />
+                <label htmlFor="file-upload" className="cursor-pointer">
+                  <div className="space-y-2">
+                    <div className="flex justify-center">
+                      <svg xmlns="http:
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Drag & drop files here or click to browse
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Supports images, PDFs, and text files up to 10MB
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={onClose}
+              className="rounded-md"
+            >
+              Cancel
+            </Button>
+            <Button 
+              type="submit" 
+              className="glow-btn rounded-md ml-2"
+              disabled={!reason || !description}
+            >
+              Summon Jury
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+export default DisputeModal;

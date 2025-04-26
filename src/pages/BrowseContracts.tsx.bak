@@ -1,0 +1,106 @@
+import React, { useState, useEffect } from 'react';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'; 
+import { Button } from '@/components/ui/button'; 
+import { Plus } from 'lucide-react'; 
+
+
+interface Contract {
+  _id: string;
+  title: string;
+  description: string;
+  budget: number;
+  clientName: string; 
+}
+
+
+const GOOGLE_FORM_URL = "YOUR_GOOGLE_FORM_LINK_HERE"; 
+
+const BrowseContracts = () => {
+  const [contracts, setContracts] = useState<Contract[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    
+    const fetchContracts = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+        
+        
+        
+        
+        
+        
+        
+
+        
+        setContracts([
+          { _id: '1', title: 'Build a React Website', description: 'Need a responsive website for my startup.', budget: 1500, clientName: 'Client A' },
+          { _id: '2', title: 'Develop a Mobile App', description: 'Cross-platform mobile app development.', budget: 5000, clientName: 'Client B' },
+          { _id: '3', title: 'Backend API with Node.js', description: 'Create REST APIs for user management.', budget: 2000, clientName: 'Client C' },
+        ]);
+
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        console.error("Failed to fetch contracts:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContracts();
+  }, []); 
+
+  return (
+    <div className="container mx-auto p-4 relative min-h-screen"> {}
+      <h1 className="text-3xl font-bold mb-6">Browse Available Contracts</h1>
+
+      {loading && <p>Loading contracts...</p>}
+      {error && <p className="text-red-500">Error: {error}</p>}
+
+      {!loading && !error && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {contracts.length > 0 ? (
+            contracts.map((contract) => (
+              <Card key={contract._id}>
+                <CardHeader>
+                  <CardTitle>{contract.title}</CardTitle>
+                  <CardDescription>Posted by: {contract.clientName}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="mb-2">{contract.description}</p>
+                  <p className="font-semibold">Budget: ${contract.budget}</p>
+                  {}
+                   <Button variant="outline" className="mt-4">View Details</Button>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <p>No contracts available at the moment.</p>
+          )}
+        </div>
+      )}
+
+      {}
+      <a
+        href={GOOGLE_FORM_URL}
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="fixed bottom-8 right-8 z-50" 
+      >
+        <Button
+          size="lg" 
+          className="rounded-full shadow-lg w-16 h-16 flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90" 
+          aria-label="Submit New Contract"
+        >
+          <Plus className="h-6 w-6" /> {}
+        </Button>
+      </a>
+    </div>
+  );
+};
+
+export default BrowseContracts;

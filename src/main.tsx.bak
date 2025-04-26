@@ -1,0 +1,58 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+
+
+import '@rainbow-me/rainbowkit/styles.css';
+import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { WagmiProvider } from 'wagmi';
+import { sepolia } from 'wagmi/chains'; 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+
+const metadata = {
+  name: 'SecureLance',
+  description: 'SecureLance Freelancing Platform',
+  url: window.location.origin, 
+  icons: ['https:
+};
+
+
+
+const config = getDefaultConfig({
+  appName: metadata.name, 
+  projectId: '55f3e7b7ab26f240fbcb0005631facf4', 
+  chains: [sepolia], 
+  
+  
+  
+  
+  
+  
+  ssr: false, 
+});
+
+
+const queryClient = new QueryClient();
+
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
+
+const root = createRoot(rootElement);
+
+
+root.render(
+  <React.StrictMode>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider>
+          <App />
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
+  </React.StrictMode>
+);

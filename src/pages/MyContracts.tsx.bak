@@ -1,0 +1,255 @@
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Clock, ArrowRight, Calendar, FileText, CheckCircle, AlertCircle } from 'lucide-react';
+
+
+const activeContracts = [
+  {
+    id: 'cont-123',
+    title: 'DeFi Dashboard UI/UX',
+    client: 'Ethereum Labs',
+    value: 2.5,
+    currency: 'ETH',
+    deadline: '2025-05-15',
+    progress: 60,
+    milestones: [
+      { id: 1, title: 'Wireframes', completed: true, value: 0.5 },
+      { id: 2, title: 'Design System', completed: true, value: 0.5 },
+      { id: 3, title: 'UI Components', completed: false, value: 0.75 },
+      { id: 4, title: 'Final Delivery', completed: false, value: 0.75 }
+    ]
+  },
+  {
+    id: 'cont-456',
+    title: 'NFT Marketplace Development',
+    client: 'Meta Collective',
+    value: 4.0,
+    currency: 'ETH',
+    deadline: '2025-05-30',
+    progress: 35,
+    milestones: [
+      { id: 1, title: 'Smart Contract', completed: true, value: 1.0 },
+      { id: 2, title: 'Frontend Integration', completed: false, value: 1.0 },
+      { id: 3, title: 'Testing & Audit', completed: false, value: 1.0 },
+      { id: 4, title: 'Deployment', completed: false, value: 1.0 }
+    ]
+  }
+];
+
+const pastContracts = [
+  {
+    id: 'cont-789',
+    title: 'Web3 Wallet Creation',
+    client: 'ChainConnect',
+    value: 3.2,
+    currency: 'ETH',
+    completedDate: '2025-03-10',
+    status: 'completed',
+    rating: 5
+  },
+  {
+    id: 'cont-101',
+    title: 'Smart Contract Audit',
+    client: 'SecureBlock',
+    value: 1.8,
+    currency: 'ETH',
+    completedDate: '2025-02-25',
+    status: 'completed',
+    rating: 5
+  }
+];
+
+const MyContracts = () => {
+  const [sortBy, setSortBy] = useState('deadline');
+
+  return (
+    <div className="animate-fade-in">
+      <div className="flex flex-wrap justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">My Contracts</h1>
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-muted-foreground">Sort by:</span>
+          <Select value={sortBy} onValueChange={setSortBy}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="deadline">Deadline</SelectItem>
+              <SelectItem value="value">Value</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      
+      <Tabs defaultValue="active" className="mb-8">
+        <TabsList className="mb-4">
+          <TabsTrigger value="active">Active Contracts</TabsTrigger>
+          <TabsTrigger value="completed">Completed</TabsTrigger>
+          <TabsTrigger value="disputes">Disputes</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="active">
+          <div className="grid gap-6">
+            {activeContracts.map(contract => (
+              <ActiveContractCard key={contract.id} contract={contract} />
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="completed">
+          <div className="grid gap-6">
+            {pastContracts.map(contract => (
+              <CompletedContractCard key={contract.id} contract={contract} />
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="disputes">
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <AlertCircle className="h-16 w-16 text-muted-foreground mb-4" />
+            <h3 className="text-xl font-medium mb-2">No Disputes</h3>
+            <p className="text-muted-foreground max-w-md">
+              You don't have any active disputes. All of your contracts are in good standing.
+            </p>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};
+
+const ActiveContractCard = ({ contract }: { contract: any }) => {
+  const daysLeft = Math.ceil((new Date(contract.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+  
+  return (
+    <Card className="overflow-hidden bg-card border-border/50">
+      <CardHeader className="pb-3">
+        <div className="flex justify-between">
+          <div>
+            <CardTitle className="text-lg">{contract.title}</CardTitle>
+            <CardDescription>Client: {contract.client}</CardDescription>
+          </div>
+          <div className="text-right">
+            <div className="text-lg font-bold text-web3-primary">
+              {contract.value} {contract.currency}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              <Clock className="h-3 w-3 inline mr-1" /> {daysLeft} days left
+            </div>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="pb-3">
+        <div className="mb-4">
+          <div className="flex justify-between text-sm mb-1">
+            <span>Progress</span>
+            <span className="font-medium">{contract.progress}%</span>
+          </div>
+          <Progress value={contract.progress} className="h-2" />
+        </div>
+        
+        <div className="space-y-3">
+          {contract.milestones.map((milestone: any, index: number) => (
+            <div key={milestone.id} className="flex items-center p-3 bg-card border rounded-lg">
+              <div className={`p-1 rounded-full ${milestone.completed ? 'bg-green-500/20 text-green-500' : 'bg-blue-500/20 text-blue-500'} mr-3`}>
+                {milestone.completed ? <CheckCircle className="h-5 w-5" /> : <Calendar className="h-5 w-5" />}
+              </div>
+              <div className="flex-1">
+                <div className="font-medium">{milestone.title}</div>
+                <div className="text-xs text-muted-foreground">
+                  {milestone.completed ? 'Completed' : `Milestone ${index + 1}`}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="font-medium">
+                  {milestone.value} {contract.currency}
+                </div>
+                <Badge variant={milestone.completed ? "outline" : "secondary"} className="mt-1">
+                  {milestone.completed ? 'Paid' : 'Pending'}
+                </Badge>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-between border-t pt-4 pb-3">
+        <Button variant="outline">View Details</Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Submit Work <ArrowRight className="h-4 w-4 ml-1" /></Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Submit Work for {contract.title}</DialogTitle>
+            </DialogHeader>
+            <div className="py-4">
+              <p className="text-sm text-muted-foreground mb-4">
+                Submit your completed deliverables for the current milestone.
+              </p>
+              {}
+            </div>
+          </DialogContent>
+        </Dialog>
+      </CardFooter>
+    </Card>
+  );
+};
+
+const CompletedContractCard = ({ contract }: { contract: any }) => {
+  return (
+    <Card className="bg-card border-border/50">
+      <CardHeader className="pb-3">
+        <div className="flex justify-between">
+          <div>
+            <CardTitle className="text-lg">{contract.title}</CardTitle>
+            <CardDescription>Client: {contract.client}</CardDescription>
+          </div>
+          <div className="text-right">
+            <div className="text-lg font-bold text-green-500">
+              {contract.value} {contract.currency}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              <FileText className="h-3 w-3 inline mr-1" /> Completed on {new Date(contract.completedDate).toLocaleDateString()}
+            </div>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30">
+              Completed
+            </Badge>
+            <span className="text-sm text-muted-foreground ml-3">
+              Client rating: 
+              <span className="ml-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className={`${i < contract.rating ? 'text-yellow-500' : 'text-muted'}`}>
+                    ★
+                  </span>
+                ))}
+              </span>
+            </span>
+          </div>
+          <Button variant="outline" size="sm">
+            View Details
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default MyContracts;

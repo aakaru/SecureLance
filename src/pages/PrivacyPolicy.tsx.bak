@@ -1,0 +1,130 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Shield } from 'lucide-react';
+
+const PrivacyPolicy = () => {
+  const sections = [
+    {
+      title: "1. Introduction",
+      content: "Welcome to SecureLance's Privacy Policy. We are committed to protecting your privacy and handling your data transparently. This policy outlines how we collect, use, and safeguard your information when you use our decentralized freelancing platform ('Platform'). By using SecureLance, you consent to the data practices described here."
+    },
+    {
+      title: "2. Information We Collect",
+      content: "We collect minimal personal information. Primarily, we interact with your public blockchain address (wallet address) provided when you connect your wallet. We may also collect information you voluntarily provide, such as username or profile details (if you choose to set them up), and usage data related to your interactions with the Platform (e.g., contract interactions, site navigation). We do NOT collect or store your private keys."
+    },
+    {
+      title: "3. How We Use Your Information",
+      content: "Your public wallet address is used to identify you on the Platform, facilitate transactions, and record your on-chain reputation. Usage data helps us improve the Platform's functionality and user experience. Any voluntarily provided profile information is used solely for display within the Platform as intended."
+    },
+    {
+      title: "4. Blockchain Data",
+      content: "Please be aware that transactions and smart contract interactions on the blockchain are public and permanent. Your wallet address and associated transaction history are publicly accessible. SecureLance does not control this public data."
+    },
+    {
+      title: "5. Cookies and Tracking Technologies",
+      content: "We may use cookies or similar technologies (like local storage) to enhance your user experience, remember your preferences (e.g., wallet connection status), and analyze platform usage. You can manage cookie preferences through your browser settings."
+    },
+    {
+      title: "6. Data Security",
+      content: "We implement reasonable security measures to protect the limited information we handle off-chain. However, the security of your wallet and private keys is your responsibility. Interactions with the blockchain are secured by cryptographic protocols inherent to the network."
+    },
+    {
+      title: "7. Third-Party Services",
+      content: "We may utilize third-party services for analytics, infrastructure (like IPFS for file storage), or blockchain interactions. These services have their own privacy policies, and we encourage you to review them. We are not responsible for the privacy practices of third parties."
+    },
+    {
+      title: "8. Data Retention",
+      content: "Off-chain data you provide (like profile info) is retained as long as your account is active or as needed to provide services. On-chain data is permanent by nature. We will delete your off-chain information upon request, subject to legal or operational requirements."
+    },
+    {
+      title: "9. Your Rights",
+      content: "Depending on your jurisdiction, you may have rights regarding your personal data, such as access, correction, or deletion (for off-chain data). As much of the core data is on-chain, certain rights may be limited by the nature of blockchain technology. Contact us to exercise your rights regarding any off-chain data we hold."
+    },
+    {
+      title: "10. Children's Privacy",
+      content: "SecureLance is not intended for use by individuals under the age of 18 (or the legal age of majority in their jurisdiction). We do not knowingly collect personal information from children."
+    },
+    {
+      title: "11. Changes to This Policy",
+      content: "We may update this Privacy Policy periodically. We will notify users of significant changes. Continued use of the Platform after changes constitutes acceptance of the updated policy."
+    },
+    {
+      title: "12. Contact Us",
+      content: "If you have questions about this Privacy Policy, please contact us at privacy@securelance.xyz."
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: 'spring', stiffness: 100 }
+    }
+  };
+
+  const headerIconVariants = {
+    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      rotate: 0,
+      transition: { type: 'spring', stiffness: 150, delay: 0.3 }
+    }
+  };
+
+  return (
+    <motion.div
+      className="container mx-auto px-4 py-12 md:py-16 max-w-4xl text-foreground"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <div className="flex flex-col items-center justify-center mb-10">
+        <motion.div 
+          className="mb-4"
+          variants={headerIconVariants}
+        >
+          <Shield className="w-12 h-12 text-blue-400" />
+        </motion.div>
+        
+        <motion.h1 
+          className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 inline-block text-transparent bg-clip-text"
+          variants={itemVariants}
+        >
+          Privacy Policy
+        </motion.h1>
+        
+        <motion.p 
+          className="text-sm text-muted-foreground text-center mt-3"
+          variants={itemVariants}
+        >
+          Last Updated: April 25, 2025
+        </motion.p>
+      </div>
+
+      <div className="space-y-8">
+        {sections.map((section, index) => (
+          <motion.div 
+            key={index} 
+            className="bg-card/30 backdrop-blur-sm border border-border/40 rounded-lg p-6 shadow-sm hover:border-blue-400/30 transition-all duration-300"
+            variants={itemVariants}
+          >
+            <h2 className="text-xl font-semibold mb-3 text-cyan-400">{section.title}</h2>
+            <p className="text-muted-foreground leading-relaxed">{section.content}</p>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
+
+export default PrivacyPolicy;

@@ -1,0 +1,10 @@
+import express from 'express';
+import {
+  signupUser, 
+  getNonceToSign,
+  verifySignatureAndLogin
+} from '../controllers/authController.js';
+const router = express.Router();
+router.get('/nonce/:address', getNonceToSign);
+router.post('/verify', verifySignatureAndLogin);
+export default router;

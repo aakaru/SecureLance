@@ -1,0 +1,62 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Github, Twitter, Linkedin, Heart } from 'lucide-react';
+export const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  return (
+    <footer className="bg-background border-t border-border/50 mt-auto py-8 px-6 md:px-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {}
+          <div>
+            <Link to="/dashboard" className="flex items-center space-x-2 mb-4">
+              <img src="/logo.png" alt="SecureLance Logo" className="h-10 w-auto" />
+              <span className="text-xl font-bold text-foreground">SecureLance</span>
+            </Link>
+            <p className="text-sm text-muted-foreground">
+              Empowering secure and transparent freelance collaborations through Web3 technology.
+            </p>
+          </div>
+          {}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <li><Link to="/browse" className="text-sm text-muted-foreground hover:text-primary transition-colors">Browse Contracts</Link></li>
+              <li><Link to="/my-contracts" className="text-sm text-muted-foreground hover:text-primary transition-colors">My Contracts</Link></li>
+              <li><Link to="/profile" className="text-sm text-muted-foreground hover:text-primary transition-colors">Profile</Link></li>
+              <li><Link to="/faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li> {}
+            </ul>
+          </div>
+          {}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">Connect</h3>
+            <ul className="space-y-2 mb-6">
+              <li><Link to="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
+              <li><Link to="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+            </ul>
+            <div className="flex space-x-4">
+              <a href="https://twitter.com/securelance" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Twitter size={18} />
+              </a>
+              <a href="https://github.com/securelance" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Github size={18} />
+              </a>
+              <a href="https://linkedin.com/company/securelance" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Linkedin size={18} />
+              </a>
+            </div>
+          </div>
+        </div>
+        {}
+        <div className="border-t border-border/50 pt-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+          <p className="text-xs text-muted-foreground mb-4 md:mb-0">
+            &copy; {currentYear} SecureLance. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground flex items-center justify-center">
+            Made with <Heart className="w-3 h-3 mx-1 fill-red-500 text-red-500"/> by Team BlockSmiths
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
