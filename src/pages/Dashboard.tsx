@@ -228,9 +228,9 @@ const Dashboard = () => {
               exit={{ opacity: 0, y: 20, transition: { staggerChildren: 0.05, staggerDirection: -1 } }}
             >
               {[ 
-                { Icon: Twitter, href: 'https://twitter.com/securelance', label: 'Twitter' },
-                { Icon: Github, href: 'https://github.com/securelance', label: 'GitHub' },
-                { Icon: Linkedin, href: 'https://linkedin.com/company/securelance', label: 'LinkedIn' }
+                { Icon: Twitter, href: 'https://x.com/CodesPasta', label: 'Twitter' },
+                { Icon: Github, href: 'https://github.com/TheRealSaiTama', label: 'GitHub' },
+                { Icon: Linkedin, href: 'https://www.linkedin.com/in/therealsaitama', label: 'LinkedIn' }
               ].map(({ Icon, href, label }) => (
                 <motion.a
                   key={label}
