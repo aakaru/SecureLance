@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import BrowseContracts from "./pages/BrowseContracts";
 import Dashboard from "./pages/Dashboard";
@@ -20,6 +20,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import React from "react";
+import Chatbot from './components/ui/Chatbot';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
             </Routes>
             <Toaster />
             <Sonner />
+            <Chatbot />
           </TooltipProvider>
         </BrowserRouter>
       </NotificationProvider>

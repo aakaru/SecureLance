@@ -202,9 +202,9 @@ const Dashboard = () => {
         </motion.div>
       </div>
       {}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-28 right-8 z-50"> {/* Moved right-6 to right-28 to shift left */}
         <motion.div
-          className="relative w-20 h-20 md:w-20 md:h-17 rounded-full overflow-hidden shadow-lg cursor-pointer border-2 border-primary/70 shadow-[0_0_15px_2px_rgba(155,135,245,0.6)] hover:scale-110 transition-transform duration-300"
+          className="relative w-16 h-16 md:w-16 md:h-16 rounded-full overflow-hidden shadow-lg cursor-pointer border-2 border-primary/70 shadow-[0_0_15px_2px_rgba(155,135,245,0.6)] hover:scale-110 transition-transform duration-300"
           onClick={() => setShowSocials(!showSocials)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
