@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is SecureLance?",
+    "answer": "SecureLance is a blockchain-based freelancing platform that ensures secure, transparent transactions between clients and freelancers."
+  },
+  {
+    "question": "How do I register on SecureLance?",
+    "answer": "Click on the 'Sign Up' button on the homepage and fill in your details to create an account."
+  },
+  {
+    "question": "How do I post a gig?",
+    "answer": "After logging in, go to your dashboard and click on 'Post a Gig'. Fill in the required details and submit."
+  },
+  {
+    "question": "How do I apply for a gig?",
+    "answer": "Browse available gigs and click 'Apply' on the ones you are interested in. Submit your proposal to the client."
+  },
+  {
+    "question": "How are payments handled?",
+    "answer": "Payments are managed through blockchain-based escrow smart contracts, ensuring funds are secure until the work is completed and approved."
+  },
+  {
+    "question": "How does the escrow system work?",
+    "answer": "When a client hires a freelancer, the payment is locked in a smart contract. Once the work is delivered and approved, the funds are released to the freelancer."
+  },
+  {
+    "question": "Is my data secure?",
+    "answer": "Yes, SecureLance uses blockchain technology and best security practices to protect your data and transactions."
+  },
+  {
+    "question": "How do I contact support?",
+    "answer": "You can contact support via the 'Contact Us' page or by emailing support@securelance.com."
+  },
+  {
+    "question": "Can I withdraw my earnings anytime?",
+    "answer": "You can withdraw your available balance from your dashboard at any time, subject to network fees."
+  },
+  {
+    "question": "What cryptocurrencies are supported?",
+    "answer": "Currently, SecureLance supports payments in Ethereum (ETH). More options will be added soon."
+  }
+]
